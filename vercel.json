@@ -11,5 +11,10 @@
       "src": "/(.*)",
       "dest": "/"
     }
-  ]
+  ],
+  "functions": {
+    "*.py": {
+      "excludeFiles": "**/*.html"
+    }
+  }
 }
