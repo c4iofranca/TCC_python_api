@@ -1,2 +1,1 @@
 Flask==2.2.2
-supabase-py==0.0.2
