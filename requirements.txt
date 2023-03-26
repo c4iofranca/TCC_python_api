@@ -1,3 +1,2 @@
-Flask
-supabase
-scikit-learn
+Flask==2.2.2
+supabase==1.0.2
