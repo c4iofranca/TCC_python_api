@@ -1,14 +1,13 @@
 from flask import Flask
 from supabase import create_client, Client
-import os
 import requests
 
 app = Flask(__name__)
 
-url: str = os.environ.get("SUPABASE_URL")
-key: str = os.environ.get("SUPABASE_KEY")
+url: str = "https://btqrhxskatfcyasskvtz.supabase.co"
+key: str ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0cXJoeHNrYXRmY3lhc3NrdnR6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjQ2NjMxODQsImV4cCI6MTk4MDIzOTE4NH0.c2A5FcLIQEvFfAkMg1Fmw_iZQ2SIB6BOxahqnHEA_oM"
 
-y1_model_execute = os.environ.get("GOOGLE_CLOUD_MODEL_Y1_URL")
+y1_model_execute = "https://us-central1-excellent-zoo-381900.cloudfunctions.net/execute_model_y1"
 
 supabase: Client = create_client(url, key)
 
