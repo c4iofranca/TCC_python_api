@@ -20,13 +20,19 @@ def home():
 
 @app.route('/execute_model_y1')
 def about():
-    response = (supabase.table('data').select("T_inj_control, GG_rpm, HP_T_exit_temp, timestamp").order(
+    response = (supabase.table('data').select("T_inj_control, GG_rpm, GT_exhGas_pressure, timestamp").order(
         column="timestamp", desc=True).limit(1).single().execute()).data
+    
+    print(response, flush=True)
 
     payload = {"values": [[response["T_inj_control"],
-                           response["GG_rpm"], response["HP_T_exit_temp"]]]}
+                           response["GG_rpm"], response["GT_exhGas_pressure"]]]}
+    
+    print(payload)
 
     result = requests.post(y1_model_execute, json=payload)
+    
+    print(result)
 
     supabase.table('predict_outputs').insert(
         {"value": result.text, "timestamp": response["timestamp"], "model_output_name": "y1"}).execute()
@@ -36,11 +42,11 @@ def about():
 
 @app.route('/execute_model_y2')
 def execute():
-    response = (supabase.table('data').select("T_inj_control, GG_rpm, HP_T_exit_temp, timestamp").order(
+    response = (supabase.table('data').select("T_inj_control, GG_rpm, GT_exhGas_pressure, timestamp").order(
         column="timestamp", desc=True).limit(1).single().execute()).data
 
     payload = {"values": [[response["T_inj_control"],
-                           response["GG_rpm"], response["HP_T_exit_temp"]]]}
+                           response["GG_rpm"], response["GT_exhGas_pressure"]]]}
 
     result = requests.post(y2_model_execute, json=payload)
 
@@ -48,3 +54,6 @@ def execute():
         {"value": result.text, "timestamp": response["timestamp"], "model_output_name": "y2"}).execute()
 
     return result.text
+
+if __name__ == 'main':
+    app.run()
